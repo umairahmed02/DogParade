@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DogParade.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DogParade
 {
@@ -23,7 +25,10 @@ namespace DogParade
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddMvc();
+
+            var connection = @"Server=(localdb)\projectsv13;Database=DogParadeDatabase;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<DogParadeDatabaseContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
