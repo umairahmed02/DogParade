@@ -27,7 +27,7 @@ namespace DogParade
         {
             services.AddMvc();
 
-            var connection = @"Server=(localdb)\projectsv13;Database=DogParadeDatabase;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=(localdb)\MSSQLLocalDB;Database=DogParadeDatabase;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<DogParadeDatabaseContext>(options => options.UseSqlServer(connection));
         }
 
