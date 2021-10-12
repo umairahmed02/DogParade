@@ -26,6 +26,8 @@ namespace DogParade
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddControllersWithViews();
+            services.AddRazorPages();
 
             var connection = @"Server=(localdb)\MSSQLLocalDB;Database=DogParadeDatabase;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<DogParadeDatabaseContext>(options => options.UseSqlServer(connection));
@@ -49,6 +51,7 @@ namespace DogParade
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -56,6 +59,7 @@ namespace DogParade
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
