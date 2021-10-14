@@ -19,14 +19,29 @@ namespace DogParade.Controllers
         }
 
         // GET: Dogs
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            var dogParadeDatabaseContext = _context.Dogs.Include(d => d.GroupNavigation);
-            return View(await dogParadeDatabaseContext.ToListAsync());
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["CurrentFilter"] = searchString;
+            var dogs = from d in _context.Dogs
+                       select d;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                dogs = dogs.Where(d => d.Name.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    dogs = dogs.OrderByDescending(d => d.Name);
+                    break;
+                default:
+                    dogs = dogs.OrderBy(d => d.Did);
+                    break;
+            }
+            return View(await dogs.AsNoTracking().ToListAsync());
         }
-
-        // GET: Dogs/Details/5
-        public async Task<IActionResult> Details(int? id)
+            // GET: Dogs/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
