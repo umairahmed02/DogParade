@@ -21,7 +21,9 @@ namespace DogParade.Controllers
         // GET: Dogs
         public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "name_asc";
+            ViewData["BreedSortParm"] = String.IsNullOrEmpty(sortOrder) ? "breed_desc" : "breed_asc";
+            ViewData["AgeSortParm"] = String.IsNullOrEmpty(sortOrder) ? "age_desc" : "age_asc";
             ViewData["CurrentFilter"] = searchString;
             var dogs = from d in _context.Dogs
                        select d;
@@ -33,6 +35,21 @@ namespace DogParade.Controllers
             {
                 case "name_desc":
                     dogs = dogs.OrderByDescending(d => d.Name);
+                    break;
+                case "name_asc":
+                    dogs = dogs.OrderBy(d => d.Name);
+                    break;
+                case "breed_desc":
+                    dogs = dogs.OrderByDescending(d => d.Breed);
+                    break;
+                case "breed_asc":
+                    dogs = dogs.OrderBy(d => d.Breed);
+                    break;
+                case "age_desc":
+                    dogs = dogs.OrderByDescending(d => d.Age);
+                    break;
+                case "age_asc":
+                    dogs = dogs.OrderBy(d => d.Age);
                     break;
                 default:
                     dogs = dogs.OrderBy(d => d.Did);
