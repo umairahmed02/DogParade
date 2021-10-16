@@ -19,10 +19,30 @@ namespace DogParade.Controllers
         }
 
         // GET: WalkingGroups
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            var dogParadeDatabaseContext = _context.WalkingGroups.Include(w => w.Dogs1).Include(w => w.WalkerNavigation);
-            return View(await dogParadeDatabaseContext.ToListAsync());
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "name_asc";
+            ViewData["CurrentFilter"] = searchString;
+            var walker = from w in _context.WalkingGroups
+                         select w;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                walker = walker.Where(w => w.MeetupLocation.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    walker = walker.OrderByDescending(w => w.MeetupLocation);
+                    break;
+                case "name_asc":
+                    walker = walker.OrderBy(w => w.MeetupLocation);
+                    break;
+                default:
+                    walker = walker.OrderBy(w => w.Gid);
+                    break;
+
+            }
+            return View(await walker.AsNoTracking().ToListAsync());
         }
 
         // GET: WalkingGroups/Details/5
