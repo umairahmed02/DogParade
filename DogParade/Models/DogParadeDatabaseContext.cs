@@ -21,6 +21,15 @@ namespace DogParade.Models
         public virtual DbSet<Walker> Walkers { get; set; }
         public virtual DbSet<WalkingGroup> WalkingGroups { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=DogParadeDatabase;Trusted_Connection=True;");
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
@@ -28,7 +37,7 @@ namespace DogParade.Models
             modelBuilder.Entity<Dog>(entity =>
             {
                 entity.HasKey(e => e.Did)
-                    .HasName("PK__Dog__C03656501A760711");
+                    .HasName("PK__Dog__C0365650812CC994");
 
                 entity.ToTable("Dog");
 
@@ -49,13 +58,13 @@ namespace DogParade.Models
                 entity.HasOne(d => d.GroupNavigation)
                     .WithMany(p => p.DogsNavigation)
                     .HasForeignKey(d => d.Group)
-                    .HasConstraintName("FK__Dog__Group__2A4B4B5E");
+                    .HasConstraintName("FK__Dog__Group__4E88ABD4");
             });
 
             modelBuilder.Entity<Walker>(entity =>
             {
                 entity.HasKey(e => e.Wid)
-                    .HasName("PK__Walker__DB37653950E5ACFF");
+                    .HasName("PK__Walker__DB37653975EEE968");
 
                 entity.ToTable("Walker");
 
@@ -69,19 +78,17 @@ namespace DogParade.Models
                 entity.HasOne(d => d.GroupNavigation)
                     .WithMany(p => p.Walkers)
                     .HasForeignKey(d => d.Group)
-                    .HasConstraintName("FK__Walker__Group__29572725");
+                    .HasConstraintName("FK__Walker__Group__4D94879B");
             });
 
             modelBuilder.Entity<WalkingGroup>(entity =>
             {
                 entity.HasKey(e => e.Gid)
-                    .HasName("PK__WalkingG__C51F0F1E23FAB791");
+                    .HasName("PK__tmp_ms_x__C51F0F1EFB4E9A30");
 
                 entity.ToTable("WalkingGroup");
 
-                entity.Property(e => e.Gid)
-                    .ValueGeneratedNever()
-                    .HasColumnName("GId");
+                entity.Property(e => e.Gid).HasColumnName("GId");
 
                 entity.Property(e => e.DurationMins).HasColumnName("Duration(mins)");
 
@@ -97,13 +104,13 @@ namespace DogParade.Models
                     .WithMany(p => p.WalkingGroups)
                     .HasForeignKey(d => d.Dogs)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__WalkingGro__Dogs__286302EC");
+                    .HasConstraintName("FK__WalkingGro__Dogs__4CA06362");
 
                 entity.HasOne(d => d.WalkerNavigation)
                     .WithMany(p => p.WalkingGroups)
                     .HasForeignKey(d => d.Walker)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__WalkingGr__Walke__276EDEB3");
+                    .HasConstraintName("FK__WalkingGr__Walke__4BAC3F29");
             });
 
             OnModelCreatingPartial(modelBuilder);
