@@ -36,9 +36,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Notes)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GroupNavigation)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -57,9 +54,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Notes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GroupNavigation.MeetupLocation)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Did">Edit</a> |
