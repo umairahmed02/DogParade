@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Walkers</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -30,9 +30,6 @@
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["AgeSortParm"]">@Html.DisplayNameFor(model => model.Age)</a>
             </th>
             <th>
-            <th>
-                @Html.DisplayNameFor(model => model.GroupNavigation)
-            </th>
             <th></th>
         </tr>
     </thead>

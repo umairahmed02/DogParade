@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<DogParade.Models.Dog>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Registered dogs";
 }
 
-<h1>Index</h1>
+<h1>Registered dogs</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -42,29 +43,30 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Breed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Notes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GroupNavigation.MeetupLocation)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Did">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Did">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Did">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Breed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GroupNavigation.MeetupLocation)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Did">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Did">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Did">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

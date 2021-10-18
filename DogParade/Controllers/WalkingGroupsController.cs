@@ -24,6 +24,8 @@ namespace DogParade.Controllers
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "name_asc";
             ViewData["CurrentFilter"] = searchString;
             var walker = from w in _context.WalkingGroups
+                         .Include(w => w.Dogs1).
+                         Include(w => w.WalkerNavigation)
                          select w;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -68,7 +70,7 @@ namespace DogParade.Controllers
         // GET: WalkingGroups/Create
         public IActionResult Create()
         {
-            ViewData["Dogs"] = new SelectList(_context.Dogs, "Did", "Breed");
+            ViewData["Dogs"] = new SelectList(_context.Dogs, "Did", "Name");
             ViewData["Walker"] = new SelectList(_context.Walkers, "Wid", "Name");
             return View();
         }
@@ -86,7 +88,7 @@ namespace DogParade.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Dogs"] = new SelectList(_context.Dogs, "Did", "Breed", walkingGroup.Dogs);
+            ViewData["Dogs"] = new SelectList(_context.Dogs, "Did", "Name", walkingGroup.Dogs);
             ViewData["Walker"] = new SelectList(_context.Walkers, "Wid", "Name", walkingGroup.Walker);
             return View(walkingGroup);
         }
@@ -104,7 +106,7 @@ namespace DogParade.Controllers
             {
                 return NotFound();
             }
-            ViewData["Dogs"] = new SelectList(_context.Dogs, "Did", "Breed", walkingGroup.Dogs);
+            ViewData["Dogs"] = new SelectList(_context.Dogs, "Did", "Name", walkingGroup.Dogs);
             ViewData["Walker"] = new SelectList(_context.Walkers, "Wid", "Name", walkingGroup.Walker);
             return View(walkingGroup);
         }
@@ -141,7 +143,7 @@ namespace DogParade.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Dogs"] = new SelectList(_context.Dogs, "Did", "Breed", walkingGroup.Dogs);
+            ViewData["Dogs"] = new SelectList(_context.Dogs, "Did", "Name", walkingGroup.Dogs);
             ViewData["Walker"] = new SelectList(_context.Walkers, "Wid", "Name", walkingGroup.Walker);
             return View(walkingGroup);
         }
@@ -181,5 +183,7 @@ namespace DogParade.Controllers
         {
             return _context.WalkingGroups.Any(e => e.Gid == id);
         }
+
+
     }
 }

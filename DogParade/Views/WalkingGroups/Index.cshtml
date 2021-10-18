@@ -4,65 +4,68 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Groups</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
 
-<div class="form-actions no-color">
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
         <p>
             Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
             <input type="submit" value="Search" class="btn btn-default" /> |
             <a asp-action="Index">Back to Full List</a>
         </p>
     </div>
+</form>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Time)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DurationMins)
-            </th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.MeetupLocation)</a>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Dogs1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WalkerNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DurationMins)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MeetupLocation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Dogs1.Breed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WalkerNavigation.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Gid">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Gid">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Gid">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Time)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DurationMins)
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.MeetupLocation)</a>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Dogs)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Walker)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Time)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DurationMins)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MeetupLocation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Dogs1.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WalkerNavigation.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Gid">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Gid">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Gid">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

@@ -25,8 +25,11 @@ namespace DogParade.Controllers
             ViewData["BreedSortParm"] = String.IsNullOrEmpty(sortOrder) ? "breed_desc" : "breed_asc";
             ViewData["AgeSortParm"] = String.IsNullOrEmpty(sortOrder) ? "age_desc" : "age_asc";
             ViewData["CurrentFilter"] = searchString;
+
             var dogs = from d in _context.Dogs
-                       select d;
+                        .Include(d => d.GroupNavigation)
+                        select d;
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 dogs = dogs.Where(d => d.Name.Contains(searchString));
@@ -57,6 +60,7 @@ namespace DogParade.Controllers
             }
             return View(await dogs.AsNoTracking().ToListAsync());
         }
+
             // GET: Dogs/Details/5
             public async Task<IActionResult> Details(int? id)
         {
