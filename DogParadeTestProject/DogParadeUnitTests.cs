@@ -10,8 +10,7 @@ namespace DogParadeTestProject
     public class DogParadeUnitTests
     {
         /// <summary>
-        /// To test if a Dog model is created as specified in Dog.cs and returned by the controller. It should display DogList data
-        /// in the table on the view page.
+        /// To test if a Dog object is created as specified in Dog.cs and returned by the controller.
         /// </summary>
         [TestMethod]
         public void DogsUnitTest()
@@ -24,8 +23,7 @@ namespace DogParadeTestProject
         }
 
         /// <summary>
-        /// To test if a Walker model is created as specified in Walker.cs and returned by the controller. It should display WalkerList data
-        /// in the table on the view page.
+        /// To test if a Walker object is created as specified in Walker.cs and returned by the controller.
         /// </summary>
         [TestMethod]
         public void WalkersUnitTest()
@@ -37,8 +35,7 @@ namespace DogParadeTestProject
             Assert.IsNotNull(result);
         }
         /// <summary>
-        /// To test if a WalkingGroup model is created as specified in WalkingGroup.cs and returned by the controller. It should display WalkingGroupList
-        /// data in the table on the view page.
+        /// To test if a WalkingGroup object is created as specified in WalkingGroup.cs and returned by the controller.
         /// </summary>
         [TestMethod]
         public void WalkingGroupsUnitTest()
@@ -49,7 +46,9 @@ namespace DogParadeTestProject
 
             Assert.IsNotNull(result);
         }
-
+        /// <summary>
+        /// To test if a dog object is created with the specified values
+        /// </summary>
         [TestMethod]
         public void CreateDogTest()
         {
@@ -67,6 +66,9 @@ namespace DogParadeTestProject
             Assert.AreEqual(1, d.Group);
         }
 
+        /// <summary>
+        /// To test if a walker object is created with the specified values
+        /// </summary>
         [TestMethod]
         public void CreateWalkerTest()
         {
@@ -80,6 +82,9 @@ namespace DogParadeTestProject
             Assert.AreEqual(1, w.Group);
         }
 
+        /// <summary>
+        /// To test if a walking group object is created with the specified values
+        /// </summary>
         [TestMethod]
         public void CreateWalkingGroupTest()
         {
