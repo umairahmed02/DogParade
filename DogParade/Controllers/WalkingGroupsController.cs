@@ -24,8 +24,8 @@ namespace DogParade.Controllers
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "name_asc";
             ViewData["CurrentFilter"] = searchString;
             var walker = from w in _context.WalkingGroups
-                         .Include(w => w.Dogs1).
-                         Include(w => w.WalkerNavigation)
+                         .Include(w => w.Dogs1)
+                         .Include(w => w.WalkerNavigation)
                          select w;
             if (!String.IsNullOrEmpty(searchString))
             {
