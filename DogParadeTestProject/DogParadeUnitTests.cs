@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace DogParadeTestProject
 {
     [TestClass]
-    public class UnitTest1
+    public class DogParadeUnitTests
     {
         /// <summary>
         /// To test if a Dog model is created as specified in Dog.cs and returned by the controller. It should display DogList data
@@ -48,6 +48,53 @@ namespace DogParadeTestProject
             IActionResult result = controller.Index() as IActionResult;
 
             Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void CreateDogTest()
+        {
+            Dog d = new Dog();
+            d.Name = "Sam";
+            d.Breed = "Irish Wolfhound";
+            d.Age = 10;
+            d.Notes = "None";
+            d.Group = 1;
+
+            Assert.AreEqual("Sam", d.Name);
+            Assert.AreEqual("Irish Wolfhound", d.Breed);
+            Assert.AreEqual(10, d.Age);
+            Assert.AreEqual("None", d.Notes);
+            Assert.AreEqual(1, d.Group);
+        }
+
+        [TestMethod]
+        public void CreateWalkerTest()
+        {
+            Walker w = new Walker();
+            w.Name = "Emma Talbot";
+            w.Age = 27;
+            w.Group = 1;
+
+            Assert.AreEqual("Emma Talbot", w.Name);
+            Assert.AreEqual(27, w.Age);
+            Assert.AreEqual(1, w.Group);
+        }
+
+        [TestMethod]
+        public void CreateWalkingGroupTest()
+        {
+            WalkingGroup w = new WalkingGroup();
+            w.Walker = 1;
+            w.Dogs = 1;
+            w.Time = System.DateTime.Today;
+            w.DurationMins = 30;
+            w.MeetupLocation = "Park";
+
+            Assert.AreEqual(1, w.Walker);
+            Assert.AreEqual(1, w.Dogs);
+            Assert.AreEqual(System.DateTime.Today, w.Time);
+            Assert.AreEqual(30, w.DurationMins);
+            Assert.AreEqual("Park", w.MeetupLocation);
         }
     }
 }
